@@ -7,7 +7,7 @@ export class ProductPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.resultsTotal = this.page.locator('.sb-results-total');
+    this.resultsTotal = this.page.locator('.sb-results-total').first();
     this.body = this.page.locator('body');
   }
 

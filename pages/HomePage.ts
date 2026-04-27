@@ -20,13 +20,13 @@ export class HomePage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.resultsTotal = this.page.locator('.sb-results-total');
+    this.resultsTotal = this.page.locator('.sb-results-total').first();
     this.addToCartLinks = this.page.locator('a[data-func="add2cart"]');
-    this.addToCartMessage = this.page.locator('.item-messagebox');
-    this.cartCount = this.page.locator('.cart-products');
+    this.addToCartMessage = this.page.locator('.item-messagebox').first();
+    this.cartCount = this.page.locator('.cart-products').first();
     this.backButton = this.page.locator('.cartbtn-event.back');
     this.forwardButton = this.page.locator('.cartbtn-event.forward');
-    this.noResultsMessage = this.page.locator('.msg.msg-info');
+    this.noResultsMessage = this.page.locator('.msg.msg-info').first();
     this.pageBody = this.page.locator('body');
   }
 

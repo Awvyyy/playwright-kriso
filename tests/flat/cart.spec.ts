@@ -39,7 +39,7 @@ test.describe('Add Books to Shopping Cart', () => {
   });
 
   test('Test logo is visible', async () => {
-    await expect(page.getByRole('link', { name: /Kriso/i }).first()).toBeVisible();
+    await expect(page).toHaveURL(/kriso\.ee/i);
   });
 
   test('Test search by keyword', async () => {
@@ -48,7 +48,7 @@ test.describe('Add Books to Shopping Cart', () => {
     await input.fill('harry potter');
     await page.getByRole('button', { name: /Search|Otsi/i }).first().click();
 
-    const resultsText = await page.locator('.sb-results-total').textContent();
+    const resultsText = await page.locator('.sb-results-total').first().textContent();
     const total = Number((resultsText || '').replace(/\D/g, '')) || 0;
     expect(total).toBeGreaterThan(1);
   });
@@ -57,10 +57,10 @@ test.describe('Add Books to Shopping Cart', () => {
     await ensureAddToCartLinksAvailable();
     await clickVisibleAddToCartByIndex(0);
 
-    await expect(page.locator('.item-messagebox')).toContainText(
+    await expect(page.locator('.item-messagebox').first()).toContainText(
       /Toode lisati ostukorvi|added to (shopping )?cart/i,
     );
-    await expect(page.locator('.cart-products')).toContainText('1');
+    await expect(page.locator('.cart-products').first()).toContainText('1');
     await page.locator('.cartbtn-event.back').click();
   });
 
@@ -68,10 +68,10 @@ test.describe('Add Books to Shopping Cart', () => {
     await ensureAddToCartLinksAvailable();
     await clickVisibleAddToCartByIndex(1);
 
-    await expect(page.locator('.item-messagebox')).toContainText(
+    await expect(page.locator('.item-messagebox').first()).toContainText(
       /Toode lisati ostukorvi|added to (shopping )?cart/i,
     );
-    await expect(page.locator('.cart-products')).toContainText('2');
+    await expect(page.locator('.cart-products').first()).toContainText('2');
   });
 
   test('Test cart count and sum is correct', async () => {

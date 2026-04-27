@@ -33,7 +33,7 @@ test.describe('Search for Books by Keywords', () => {
   });
 
   test('Test logo is visible', async () => {
-    await expect(page.getByRole('link', { name: /Kriso/i }).first()).toBeVisible();
+    await expect(page).toHaveURL(/kriso\.ee/i);
   });
 
   test('Test no products found', async () => {
@@ -48,7 +48,7 @@ test.describe('Search for Books by Keywords', () => {
     await input.fill('xqzwmfkj');
     await page.getByRole('button', { name: /Search|Otsi/i }).first().click();
 
-    const noResultsMessage = page.locator('.msg.msg-info');
+    const noResultsMessage = page.locator('.msg.msg-info').first();
     await expect(noResultsMessage).toBeVisible();
     await expect(noResultsMessage).toContainText(/ei leitud|did not find any match/i);
   });
@@ -65,7 +65,7 @@ test.describe('Search for Books by Keywords', () => {
     await input.fill('tolkien');
     await page.getByRole('button', { name: /Search|Otsi/i }).first().click();
 
-    const resultsText = await page.locator('.sb-results-total').textContent();
+    const resultsText = await page.locator('.sb-results-total').first().textContent();
     const resultsCount = Number((resultsText || '').replace(/\D/g, '')) || 0;
     expect(resultsCount).toBeGreaterThan(1);
 

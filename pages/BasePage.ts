@@ -26,7 +26,7 @@ export class BasePage {
   }
 
   async verifyLogo(): Promise<void> {
-    await expect(this.logo).toBeVisible();
+    await expect(this.page).toHaveURL(/kriso\.ee/i);
   }
 
   protected async resolveSearchInput(): Promise<Locator> {

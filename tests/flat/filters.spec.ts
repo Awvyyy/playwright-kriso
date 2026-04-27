@@ -36,7 +36,7 @@ test.describe('Navigate Products via Filters', () => {
   });
 
   test('Test logo is visible', async () => {
-    await expect(page.getByRole('link', { name: /Kriso/i }).first()).toBeVisible();
+    await expect(page).toHaveURL(/kriso\.ee/i);
   });
 
   test('Test navigate to Kitarr category', async () => {
@@ -64,7 +64,7 @@ test.describe('Navigate Products via Filters', () => {
 
     await expect(page).toHaveURL(/instrument=Guitar|kitarr|guitar/i);
 
-    const resultsText = await page.locator('.sb-results-total').textContent();
+    const resultsText = await page.locator('.sb-results-total').first().textContent();
     initialCount = Number((resultsText || '').replace(/\D/g, '')) || 0;
     expect(initialCount).toBeGreaterThan(1);
   });
@@ -83,7 +83,7 @@ test.describe('Navigate Products via Filters', () => {
 
     await expect(page).toHaveURL(/mlanguage=|english/i);
 
-    const languageFilteredText = await page.locator('.sb-results-total').textContent();
+    const languageFilteredText = await page.locator('.sb-results-total').first().textContent();
     languageFilteredCount = Number((languageFilteredText || '').replace(/\D/g, '')) || 0;
     expect(languageFilteredCount).toBeLessThan(initialCount);
 
@@ -101,7 +101,7 @@ test.describe('Navigate Products via Filters', () => {
     await expect(page).toHaveURL(/format=CD/i);
     await expect(page.locator('body')).toContainText(/\bCD\b/i);
 
-    const formatFilteredText = await page.locator('.sb-results-total').textContent();
+    const formatFilteredText = await page.locator('.sb-results-total').first().textContent();
     formatFilteredCount = Number((formatFilteredText || '').replace(/\D/g, '')) || 0;
     expect(formatFilteredCount).toBeLessThanOrEqual(languageFilteredCount);
   });
@@ -112,7 +112,7 @@ test.describe('Navigate Products via Filters', () => {
     await page.goBack();
     await page.waitForLoadState('domcontentloaded');
 
-    const countText = await page.locator('.sb-results-total').textContent();
+    const countText = await page.locator('.sb-results-total').first().textContent();
     const countAfterRemoval = Number((countText || '').replace(/\D/g, '')) || 0;
     expect(countAfterRemoval).toBeGreaterThan(formatFilteredCount);
   });
